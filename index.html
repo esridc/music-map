@@ -1,0 +1,147 @@
+<!--
+
+  This is an experiment in non-mouse map navigation made in the Esri R&D Center DC.
+  It was fun!
+  Peter Richardson July 2021
+  pxrich@gmail.com
+
+-->
+
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <meta
+  name="viewport"
+  content="initial-scale=1,maximum-scale=1,user-scalable=no"
+  />
+  <title>Esri Music Map Demo</title>
+  <link href="tabnav-min.css" rel="stylesheet">
+
+	<script src='https://unpkg.com/tone@14.7.77/build/Tone.js'></script>
+
+  <!-- 3rd party libraries -->
+  <script src="https://d3js.org/d3.v4.js"></script>
+  <!-- <script src="https://cdn.rawgit.com/fabid/d3-rectbin/master/rectbin.js"></script> -->
+  <script src="rectbin.js"></script> <!-- local for debugging -->
+
+  <script type="module" src="sonar.mjs"></script>
+</head>
+
+<body>
+  <div id="header"><div class="title">Music Map</div>
+    <div class="subtitle"><a href="https://dc.esri.com/">Esri R&D Center DC</a></div>
+  </div>
+
+  <div id="content">
+  <div id="keyboardModeMenu" tabindex="0" class="sidebar">
+    
+    <div class="sidebarItems">
+      <h1>Menu</h1>
+      <div>
+        <input type="checkbox" tabindex="0" id="featureSelectionModeButton" aria-labelledby="featureSelectionModeLabel"></input>
+        <label id="featureSelectionModeLabel">Feature&nbsp;Selection</label>
+      </div>
+      <div>
+        <input type="checkbox" tabindex="0" id="featureModeButton" aria-labelledby="featureModeLabel"></input>
+        <label id="featureModeLabel">Inspect&nbsp;Feature</label>
+      </div>
+      <div>
+        <input type="checkbox" tabindex="0" id="verboseCheckbox" aria-labelledby="verboseLabel"></input>
+        <label id="verboseLabel">Verbose</label>
+      </div>
+      <div>
+        <input type="checkbox" tabindex="0" checked="true" id="sonarModeCheckbox" aria-labelledby="sonarModeLabel"></input>
+        <label id="sonarModeLabel">Sound</label>
+      </div>
+      <div>
+        <input type="checkbox" tabindex="0" id="helpButton" aria-labelledby="helpButtonLabel"></input>
+        <label id="helpButtonLabel">Help</label>
+      </div>
+      <div>
+        <button tabindex="0" id="pingButton" onclick="triggerPing()">PING</button>
+      </div>
+    </div>
+  </div>
+  
+  
+  <div id="status">
+    <div>
+      Focus:
+      <span id="focusStatus">focusStatus</span>
+    </div>
+    <div>
+      Key:
+      <span id="keyStatus">keyStatus</span>
+    </div>
+    <div>
+      Mode:
+      <span id="modeStatus">modeStatus</span>
+    </div>
+  </div>
+  <div id="alertDivWrapper">
+    Speech announcement
+    <div id="alertDiv" role="alert">
+    </div>
+  </div>
+  <div id="helpDivWrapper">
+    <div id="helpDiv" role="alert">
+      <b>Music Map</b>
+      <p>Press escape to close this message and go to the main menu.</p>
+      <p>Note: This web page plays sounds! Please adjust your volume. To disable the sounds, uncheck the "Sounds" button.</p>
+      <p>This map uses non-visual navigation. It shows 2000 global features from a water quality database, and starts centered on the Iberian Penisula over Madrid.</p>
+
+      <p>The arrow keys will move the map. The "z" and "x" keys will zoom in and out. Zoom 0 shows the whole world, zoom 6 is roughly the size of a country, zoom 12 is city level, and zoom 16 shows individual streets. The "c" key will center and zoom in on a selected feature.</p>
+
+      <p>The number keys also set zoom levels 0 through 9.</p>
+
+      <p>There is a menu with five checkboxes. Pressing enter on each will toggle the selected mode.</p>
+
+      <p>1) Feature selection. In this mode, press Tab and Shift-tab to move forward and back through onscreen features. Press escape to exit selection mode and return to the menu. Press Enter to examine a selected feature's data.</p>
+
+      <p>2) Inspect feature. In this mode, press Tab and Shift-tab to move forward and back through a selected feature's attributes. Press escape to leave the feature and return to selection mode.</p>
+
+      <p>3) Verbose. When navigating the map, this mode will announce zoom levels and a geolocation result for the part of the map in the center of the screen.</p>
+
+      <p>4) Sound. This mode plays musical notes when the map moves. The features currently onscreen are converted to a musical score from west to east, with relative vertical screen position converted to pitch. The "s" key will also trigger sounds. When this mode is active, individual features will be played in Feature selection mode.</p>
+
+      <p>5) Help. This button shows this help text. Press escape to close it and return to the menu.</p>
+    </div>
+  </div>
+
+  <!-- popup content template -->
+  <div style="position: absolute; visibility: hidden" id="popup-content-template">
+    <h3 id="placeLabel" tabindex="0"></h3> <!-- needs a tabindex so it can be .focus()ed -->
+    <table id="popupTable" aria-label='Feature Attributes'>
+      <thead>
+        <tr>
+          <th role='columnheader'>Attribute Name</th>
+          <th role='columnheader'>Attribute Value</th>
+        </tr>
+      </thead>
+
+    </table>
+  </div>
+
+
+  <div id="viewDiv" tabindex="0" aria-label="Map">
+    <div id="loaderWrapper">
+      <div id="base-loader" aria-label="loading">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 56 56" class="loader-square loader-square-1">
+          <rect width="56" height="56"></rect>
+        </svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 56 56" class="loader-square loader-square-2">
+          <rect width="56" height="56"></rect>
+        </svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 56 56" class="loader-square loader-square-3">
+          <rect width="56" height="56"></rect>
+        </svg>
+        <div class="loader-bars"></div>
+      </div>
+    </div>    
+      </div>    
+    </div>    
+  </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,293 @@
+/* main styles */
+
+body {
+  /* display: flex; */
+  font-family: "Avenir Next W01", "Avenir Next", Avenir, "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 16px;
+  background-color: #CFD3D4;
+}
+
+html,
+body {
+  width: 100%;
+  height: 100%;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+#header {
+  background-color: steelblue;
+  color: white;
+  clear: both;
+  font-family: 'Avenir Next';
+  font-weight: bolder;
+  padding: 20px;
+}
+
+#content {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  display: flex;
+  flex-direction: row;
+}
+
+.sidebar {
+  z-index: 1;
+  order: 1;
+  padding: 20px;
+  width: 25%;
+  background-color: rgb(225, 225, 225);
+  /* border-right: .15px solid gray; */
+  box-shadow: 0 0 6px rgb(0 0 0 / 30%);
+}
+
+.title {
+  font-size: 36px;
+}
+
+.subtitle {
+  font-weight: bolder;
+  font-size: 12px;
+  margin-left: 2px;
+}
+
+#viewDiv {
+  order: 2;
+  width: 100%;
+  padding: 0;
+  margin: 0;
+  display: flex;
+}
+
+
+#sidebarItems {
+  white-space: nowrap;
+}
+
+#sidebarItems > * {
+  margin-bottom: 10px;
+}
+
+.sidebarItemHeader {
+  font-weight: bold;
+  /* position: relative; */
+}
+
+#pingButton {
+  border: 2px solid steelblue;
+  margin: 10px 0;
+  width: 100%;
+  height: 50px;
+  font-size: 20px;
+  font-weight: bolder;
+  letter-spacing: 2px;
+  border-radius: 20px;
+  background-color: rgb(168, 214, 255);
+  transition: all 0.1s;
+}
+
+#pingButton:focus {
+  outline: 0;
+  border: 3px solid blue;
+}
+
+#pingButton:hover {
+  transform: scale(1.05);
+  transition: 0.1s ease-out; 
+}
+
+#pingButton:active {
+  transform: scale(1);
+  background-color: white;
+  color: white;
+  opacity: 1;
+  transition: 0s;
+}
+
+:focus {
+  outline: 2px solid blue;
+}
+
+.hidden {
+  visibility: hidden;
+}
+
+#status {
+  display: none;
+  position: absolute;
+  bottom: 0px;
+  padding: 10px;
+  background: white;
+  opacity: 50%;
+  font-size: 12px;
+}
+
+#keyStatus, #modeStatus, #focusStatus {
+  padding: 10px;
+  /* margin-left: 20px; */
+}
+
+.sidebar > button {
+  height: 15px;
+}
+
+#alertDivWrapper {
+  z-index: 1;
+  text-transform: uppercase;
+  font-size: 10px;
+  font-weight: bold;
+  position: absolute;
+  right: 0;
+  background-color: white;
+  padding: 10px;
+  margin: 10px;
+  border: 2px solid gray;
+}
+#alertDiv {
+  margin-top: 10px;
+  text-transform: none;
+  font-variant: normal;
+  font-size: medium;
+  font-weight: normal;
+}
+
+#helpDivWrapper {
+  display: none;
+  position: absolute;
+  z-index: 2;
+  width: 100%;
+  pointer-events: none;
+}
+
+#helpDiv {
+  background-color: white;
+  margin: 50px auto;
+  border: 2px solid black;
+  padding: 20px;
+  max-width: 900px;
+  pointer-events: all;
+}
+
+
+/* 
+/* 
+/* loader stolen from dc.esri.com */
+/* 
+/* 
+*/
+
+#loaderWrapper {
+  width: 50%;
+  height: 50%;
+  pointer-events: none;
+}
+
+
+#base-loader {
+  z-index: 2;
+  fill:none;
+  stroke:#009af2;
+  animation:loader-color-shift 2s alternate-reverse infinite linear;
+  height: calc(100% - 54px);
+  transform: translateX(50%) translateY(100%);
+}
+
+#base-loader svg.loader-square {
+  position:absolute;
+  left:0;
+  right:0;
+  margin-left:auto;
+  margin-right:auto;
+  width:54px;
+  height:54px;
+  stroke-width:6px;
+  stroke-dashoffset:0;
+  fill:none
+}
+#base-loader svg.loader-square.loader-square-1 {
+  stroke-dasharray:50% 350%;
+  animation:loader-clockwise 2s infinite linear
+}
+#base-loader svg.loader-square.loader-square-2 {
+  stroke-dasharray:100% 225% 50% 25%;
+  animation:loader-clockwise 1s infinite linear
+}
+#base-loader svg.loader-square.loader-square-3 {
+  stroke-dasharray:50% 50% 75% 225%;
+  animation:loader-clockwise 1.85s infinite linear
+}
+@keyframes loader-color-shift {
+  0% {
+  stroke:#009af2
+}100% {
+  stroke:#00619b
+}
+}
+@keyframes loader-clockwise {
+  0% {
+  stroke-dashoffset:0
+}100% {
+  stroke-dashoffset:-400%
+}
+}
+#base-loader .loader-bars {
+  display:none
+}
+@media screen and (-ms-high-contrast:active),(-ms-high-contrast:none) {
+  #base-loader svg,.active#base-loader svg {
+  display:none
+}
+#base-loader .loader-bars,.active#base-loader .loader-bars {
+  display:block
+}
+
+}
+@supports (-ms-ime-align:auto) {
+  #base-loader svg,.active#base-loader svg {
+  display:none
+}
+#base-loader .loader-bars,.active#base-loader .loader-bars {
+  display:block
+}
+
+}
+#base-loader .loader-bars,#base-loader .loader-bars:after,#base-loader .loader-bars:before {
+  background:#0079c1;
+  animation:load .8s infinite ease-in-out;
+  width:8.5px;
+  height:20px
+}
+#base-loader .loader-bars:after,#base-loader .loader-bars:before {
+  position:absolute;
+  top:0;
+  content:""
+}
+#base-loader .loader-bars {
+  text-indent:-9999em;
+  margin:auto;
+  position:absolute;
+  right:calc(50% - 4.25px);
+  animation-delay:.16s
+}
+#base-loader .loader-bars:before {
+  left:-12.5px
+}
+#base-loader .loader-bars:after {
+  left:12.5px;
+  animation-delay:.32s
+}
+@keyframes load {
+  0%,100%,80% {
+  opacity:.75;
+  box-shadow:0 0 #0079c1;
+  height:20px
+}
+40% {
+  opacity:1;
+  box-shadow:0 -5px #0079c1;
+  height:25px
+}
+}
