@@ -267,6 +267,10 @@ import { loadModules, setDefaultOptions } from 'https://unpkg.com/esri-loader/di
     document.querySelector('#featureModeButton').checked = mode == "feature" ? true : false;
     document.querySelector('#helpButton').checked = mode == "help" ? true : false;
     document.querySelector('#helpDivWrapper').style.display = mode == "help" ? "flex" : "none";
+    if (mode == "help") {
+      console.log('?');
+      document.querySelector('#helpDiv').focus();
+    }
     modeStatus(mode);
   }
 

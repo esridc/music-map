@@ -1,6 +1,6 @@
 # Music Map
 
-This is an experiment in non-visual modes of map navigation.
+This is an experiment in non-visual modes of map navigation, designed for use with screen readers, and including musical feedback to "play" the location of features.
 
 Run it here: https://esridc.github.io/music-map/
 

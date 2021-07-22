@@ -37,30 +37,32 @@
   <div id="keyboardModeMenu" tabindex="0" class="sidebar">
     
     <div class="sidebarItems">
-      <h1>Menu</h1>
-      <div>
+      <h1>Menu,</h1>
+      <ul>
+      <li>
         <input type="checkbox" tabindex="0" id="featureSelectionModeButton" aria-labelledby="featureSelectionModeLabel"></input>
-        <label id="featureSelectionModeLabel">Feature&nbsp;Selection</label>
-      </div>
-      <div>
+        <label id="featureSelectionModeLabel">Feature&nbsp;Selection,</label>
+      </li>
+      <li>
         <input type="checkbox" tabindex="0" id="featureModeButton" aria-labelledby="featureModeLabel"></input>
-        <label id="featureModeLabel">Inspect&nbsp;Feature</label>
-      </div>
-      <div>
+        <label id="featureModeLabel">Inspect&nbsp;Feature,</label>
+      </li>
+      <li>
         <input type="checkbox" tabindex="0" id="verboseCheckbox" aria-labelledby="verboseLabel"></input>
-        <label id="verboseLabel">Verbose</label>
-      </div>
-      <div>
+        <label id="verboseLabel">Verbose,</label>
+      </li>
+      <li>
         <input type="checkbox" tabindex="0" checked="true" id="sonarModeCheckbox" aria-labelledby="sonarModeLabel"></input>
-        <label id="sonarModeLabel">Sound</label>
-      </div>
-      <div>
+        <label id="sonarModeLabel">Sound,</label>
+      </li>
+      <li>
         <input type="checkbox" tabindex="0" id="helpButton" aria-labelledby="helpButtonLabel"></input>
-        <label id="helpButtonLabel">Help</label>
-      </div>
-      <div>
-        <button tabindex="0" id="pingButton" onclick="triggerPing()">PING</button>
-      </div>
+        <label id="helpButtonLabel">Help,</label>
+      </li>
+      <li>
+        <button tabindex="0" id="pingButton" onclick="triggerPing()">PLAY</button>
+      </li>
+      </ul>
     </div>
   </div>
   
@@ -85,27 +87,29 @@
     </div>
   </div>
   <div id="helpDivWrapper">
-    <div id="helpDiv" role="alert">
-      <b>Music Map</b>
-      <p>Press escape to close this message and go to the main menu.</p>
-      <p>Note: This web page plays sounds! Please adjust your volume. To disable the sounds, uncheck the "Sounds" button.</p>
-      <p>This map uses non-visual navigation. It shows 2000 global features from a water quality database, and starts centered on the Iberian Penisula over Madrid.</p>
+    <div id="helpDiv" role="alert" tabindex="0">
+      <h2 tabindex="0">Music Map</h2>
+      <p tabindex="0">You can tab through this message.</p>
+      <p tabindex="0">Press escape to close this message and go to the main menu.</p>
+      <p tabindex="0">To disable sounds, uncheck the "Sounds" button.</p>
+      <p tabindex="0">This map uses non-visual navigation, and is designed for use with screen readers. It shows 2000 global features from a water quality database, and starts centered on the Iberian Peninsula over Madrid.</p>
 
-      <p>The arrow keys will move the map. The "z" and "x" keys will zoom in and out. Zoom 0 shows the whole world, zoom 6 is roughly the size of a country, zoom 12 is city level, and zoom 16 shows individual streets. The "c" key will center and zoom in on a selected feature.</p>
+      <p tabindex="0">The arrow keys move the map. Z and X keys zoom in and out. C key will center and zoom in on a selected feature.</p>
 
-      <p>The number keys also set zoom levels 0 through 9.</p>
+      <p tabindex="0">The number keys also set zoom levels 0 through 9. Zoom 0 shows the whole world, zoom 6 is roughly the size of a country, zoom 12 is city level, and zoom 16 shows individual streets.</p>
 
-      <p>There is a menu with five checkboxes. Pressing enter on each will toggle the selected mode.</p>
+      <p tabindex="0">There is a menu with five options. Pressing enter on each will toggle the selected mode.</p>
 
-      <p>1) Feature selection. In this mode, press Tab and Shift-tab to move forward and back through onscreen features. Press escape to exit selection mode and return to the menu. Press Enter to examine a selected feature's data.</p>
+      <p tabindex="0">1. Feature selection. In this mode, press Tab and Shift-tab to move forward and back through onscreen features. Press escape to exit selection mode and return to the menu. Press Enter to examine a selected feature's data.</p>
 
-      <p>2) Inspect feature. In this mode, press Tab and Shift-tab to move forward and back through a selected feature's attributes. Press escape to leave the feature and return to selection mode.</p>
+      <p tabindex="0">2. Inspect feature. In this mode, press Tab and Shift-tab to move forward and back through a selected feature's attributes. Press escape to leave the feature and return to selection mode.</p>
 
-      <p>3) Verbose. When navigating the map, this mode will announce zoom levels and a geolocation result for the part of the map in the center of the screen.</p>
+      <p tabindex="0">3. Verbose. When navigating the map, this mode will announce zoom levels and a geolocation result for the part of the map in the center of the screen.</p>
 
-      <p>4) Sound. This mode plays musical notes when the map moves. The features currently onscreen are converted to a musical score from west to east, with relative vertical screen position converted to pitch. The "s" key will also trigger sounds. When this mode is active, individual features will be played in Feature selection mode.</p>
+      <p tabindex="0">4. Sound. This mode plays musical notes when the map moves. The features currently onscreen are converted to a musical score from west to east, with relative vertical screen position converted to pitch. The "s" key will also trigger sounds. When this mode is active, individual features will be played in Feature selection mode.</p>
 
-      <p>5) Help. This button shows this help text. Press escape to close it and return to the menu.</p>
+      <p tabindex="0">5. Help. This button shows this help text. Press escape to close it and return to the menu.</p>
+    </ul>
     </div>
   </div>
 
