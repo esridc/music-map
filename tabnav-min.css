@@ -291,3 +291,11 @@ body {
   height:25px
 }
 }
+
+li {
+  list-style-type: none;
+}
+
+th {
+  text-align: left;
+}

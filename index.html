@@ -88,7 +88,7 @@
   </div>
   <div id="helpDivWrapper">
     <div id="helpDiv" role="alert" tabindex="0">
-      <h2 tabindex="0">Music Map</h2>
+      <h2 tabindex="0">Music Map Help</h2>
       <p tabindex="0" role="text">You can tab through this message.</p>
       <p tabindex="0" role="text">Press escape to close this message and go to the main menu.</p>
       <p tabindex="0" role="text">To disable sounds, uncheck the "Sounds" button.</p>
@@ -110,15 +110,17 @@
       <p tabindex="0" role="text">4, Sound. This mode plays musical notes when the map moves. The onscreen features are converted to a musical score from west to east, with vertical screen position converted to pitch. When this mode is active, individual features will be played in Feature selection mode. You may also press "s" to play at any time.</p>
 
       <p tabindex="0" role="text">5, Help. This button shows this help text. Press escape to return to the main menu.</p>
+      <p>End of help.</p>
       </div>
     </ul>
     </div>
   </div>
 
   <!-- popup content template -->
-  <div style="position: absolute; visibility: hidden" id="popup-content-template">
-    <h3 id="placeLabel" tabindex="0"></h3> <!-- needs a tabindex so it can be .focus()ed -->
-    <table id="popupTable" aria-label='Feature Attributes'>
+  <div style="position: absolute; visibility: hidden" id="popup-content-template" tabindex="0">
+    <table id="popupTable">
+      <h3 id="placeLabel"></h3> <!-- needs a tabindex so it can be .focus()ed -->
+      <p id="attributeCount"></p>
       <thead>
         <tr>
           <th role='columnheader'>Attribute Name</th>

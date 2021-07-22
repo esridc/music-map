@@ -235,8 +235,7 @@ import { loadModules, setDefaultOptions } from 'https://unpkg.com/esri-loader/di
       // toggle verbose
       if (e.currentTarget.checked) {
         keyboardModeState.verbose = true;
-        updateFeatures();
-        announceRegion();
+        updateFeatures().then(() => verboseAnnouncement());
       }
       else {
         keyboardModeState.verbose = false;
@@ -330,7 +329,7 @@ import { loadModules, setDefaultOptions } from 'https://unpkg.com/esri-loader/di
     }
 
     if (keyboardModeState.verbose) {
-      announceRegion()
+      verboseAnnouncement();
     }
 
   }
@@ -388,7 +387,7 @@ import { loadModules, setDefaultOptions } from 'https://unpkg.com/esri-loader/di
       e.preventDefault();
     }
     if (e.key == "Enter") { // go into selected feature
-        activateFeatureMode().then(() => document.querySelector("#popup-content>#placeLabel").focus());
+        activateFeatureMode().then(() => document.querySelector("#popup-content").focus());
         e.preventDefault();
     }
   }
@@ -403,7 +402,7 @@ import { loadModules, setDefaultOptions } from 'https://unpkg.com/esri-loader/di
           if (document.querySelector("#popup-content>#placeLabel") != null) {
             if (document.querySelector("#popup-content>#placeLabel").innerText != "") {
               // TODO: fix
-              document.querySelector("#popup-content>#placeLabel").focus(); // currently focus moves to the end of the popup, hmm
+              document.querySelector("#popup-content").focus(); // currently focus moves to the end of the popup, hmm
             }
           }
         })  
@@ -489,7 +488,7 @@ import { loadModules, setDefaultOptions } from 'https://unpkg.com/esri-loader/di
       }
     });
 
-    div.innerHTML += `${keys.length} feature attributes:`;
+    document.getElementById('attributeCount').innerText = `${keys.length} feature attributes:`;
     let table = div.querySelector('#popupTable');
     table.setAttribute('tabindex', '0');
     var td;
@@ -1052,15 +1051,15 @@ import { loadModules, setDefaultOptions } from 'https://unpkg.com/esri-loader/di
     return (((val - oldMin) * (newMax - newMin)) / (oldMax - oldMin)) + newMin;
   }
 
-  // look up some kind of name for current map position
-  function announceRegion() {
+    // look up some kind of name for current map position
+  async function getRegion() {
     let controller = new AbortController();
     let signal = controller.signal;
 
     let location = { lon: state.view.center.longitude, lat: state.view.center.latitude };
     let url = `https://geocode.arcgis.com/arcgis/rest/services/World/GeocodeServer/reverseGeocode?f=pjson&featureTypes=&langCode=en&location=${location.lon},${location.lat}`;
     console.log(url)
-    esriRequest(url, {
+    return esriRequest(url, {
       signal,
       responseType: "json",
     }).then(function(response){
@@ -1074,9 +1073,9 @@ import { loadModules, setDefaultOptions } from 'https://unpkg.com/esri-loader/di
       else if (z < 20) placeName = geoJson.address.LongLabel;
       if (placeName == '') placeName = geoJson.address.ShortLabel;
       if (placeName != keyboardModeState.lastPlace) {
-        statusAlert(placeName);
         keyboardModeState.lastPlace = placeName;
       }
+      return placeName;
 
     }).catch((err) => {
       if (err.name === 'AbortError') {
@@ -1087,6 +1086,11 @@ import { loadModules, setDefaultOptions } from 'https://unpkg.com/esri-loader/di
     });
   }
 
+  async function verboseAnnouncement() {
+    await getRegion().then(region => {
+      statusAlert(region + ", " + keyboardModeState.features.length + " features");
+    })
+  }
   initKeyboardMode();
 
 })();
