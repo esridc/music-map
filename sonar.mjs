@@ -479,7 +479,7 @@ import { loadModules, setDefaultOptions } from 'https://unpkg.com/esri-loader/di
       var geoJson = response.data;
       // track this in state so the popup knows whether to cancel any outstanding requests
       keyboardModeState.place = geoJson.address.LongLabel;
-      document.getElementById('placeLabel').innerHTML = geoJson.address.LongLabel;
+      document.getElementById('placeLabel').innerHTML = geoJson.address.LongLabel + ",";
     }).catch((err) => {
       if (err.name === 'AbortError') {
         // console.log('Request aborted');
