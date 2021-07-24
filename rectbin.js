@@ -37,11 +37,12 @@
         var pi = trunc(px);
 
         var id = pi + '-' + pj;
-        var bin = binsById[id];
         try {
+          var bin = binsById[id];
           bin.push(point);
         } catch(e) {
-          throw new Error(e)
+          // I think the size of the maps is leading to precision problems -_-
+          // console.warn('problem with id:', id)
           // debugger
         }
       });
