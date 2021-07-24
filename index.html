@@ -52,7 +52,7 @@
         <label id="verboseLabel">Verbose,</label>
       </li>
       <li role="listitem">
-        <input type="checkbox" tabindex="0" checked="true" id="sonarModeCheckbox" aria-labelledby="sonarModeLabel"></input>
+        <input type="checkbox" tabindex="0" id="sonarModeCheckbox" aria-labelledby="sonarModeLabel"></input>
         <label id="sonarModeLabel">Sound,</label>
       </li>
       <li role="listitem">
@@ -119,12 +119,14 @@
   <!-- popup content template -->
   <div style="position: absolute; visibility: hidden" id="popup-content-template" tabindex="0">
     <table id="popupTable">
-      <h3 id="placeLabel"></h3> <!-- needs a tabindex so it can be .focus()ed -->
-      <p id="attributeCount"></p>
+      <p role="heading "tabindex="0">
+        <p id="placeLabel" role="heading"></p> <!-- needs a tabindex so it can be .focus()ed -->
+        <p id="attributeCount"></p>
+      </p>
       <thead>
         <tr>
-          <th role='columnheader'>Attribute Name</th>
-          <th role='columnheader'>Attribute Value</th>
+          <th>Attribute Name</th>
+          <th>Attribute Value</th>
         </tr>
       </thead>
 

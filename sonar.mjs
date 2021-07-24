@@ -244,8 +244,7 @@ import { loadModules, setDefaultOptions } from 'https://unpkg.com/esri-loader/di
     document.querySelector('#sonarModeCheckbox').addEventListener('change', (e) => {
       // toggle sound
       if (e.currentTarget.checked) {
-        sonarSetup();
-        ping();
+        sonarSetup().then(() => ping());
       }
       else Tone.Transport.stop()
     });
@@ -402,7 +401,7 @@ import { loadModules, setDefaultOptions } from 'https://unpkg.com/esri-loader/di
           if (document.querySelector("#popup-content>#placeLabel") != null) {
             if (document.querySelector("#popup-content>#placeLabel").innerText != "") {
               // TODO: fix
-              document.querySelector("#popup-content").focus(); // currently focus moves to the end of the popup, hmm
+              document.querySelector("#popup-content>#placeLabel").focus(); // currently focus moves to the end of the popup, hmm
             }
           }
         })  
@@ -559,7 +558,7 @@ import { loadModules, setDefaultOptions } from 'https://unpkg.com/esri-loader/di
       statusAlert('Popup: '+content.meta);
 
       if (document.getElementById('sonarModeCheckbox').checked && !keyboardModeState.sonar) {
-        sonarSetup();
+        await sonarSetup();
       }
 
       if (keyboardModeState.sonar) {
@@ -694,10 +693,10 @@ import { loadModules, setDefaultOptions } from 'https://unpkg.com/esri-loader/di
     }
   });
 
-  function triggerPing() {
+  async function triggerPing() {
     // do a sonar ping
-    if (document.getElementById('sonarModeCheckbox').checked && !keyboardModeState.sonar) {
-      sonarSetup();
+    if (!keyboardModeState.sonar) {
+      await sonarSetup();
     }
     ping();
   }
@@ -798,7 +797,7 @@ import { loadModules, setDefaultOptions } from 'https://unpkg.com/esri-loader/di
     }
   }
 
-  function sonarSetup() {
+  async function sonarSetup() {
     // set state
     keyboardModeState.sonar = true;
     // activate Tone.js

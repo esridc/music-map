@@ -41,7 +41,7 @@
         try {
           bin.push(point);
         } catch(e) {
-          console.log(e)
+          throw new Error(e)
           // debugger
         }
       });
