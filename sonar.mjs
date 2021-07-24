@@ -104,7 +104,11 @@ import { loadModules, setDefaultOptions } from 'https://unpkg.com/esri-loader/di
         // nothing moved
         return false
       }
-      updateFeatures();
+      updateFeatures().then(() => {
+        if (keyboardModeState.sonar) {
+          triggerPing();
+        };
+      });
     });
 
 
@@ -244,9 +248,12 @@ import { loadModules, setDefaultOptions } from 'https://unpkg.com/esri-loader/di
     document.querySelector('#sonarModeCheckbox').addEventListener('change', (e) => {
       // toggle sound
       if (e.currentTarget.checked) {
-        sonarSetup().then(() => ping());
+        activateSoundMode().then(() => ping());
       }
-      else Tone.Transport.stop()
+      else {
+        keyboardModeState.sonar = false;
+        Tone.Transport.stop()
+      }
     });
     document.querySelector('#helpButton').addEventListener('click', (e) => {
       if (e.currentTarget.checked) {
@@ -266,7 +273,6 @@ import { loadModules, setDefaultOptions } from 'https://unpkg.com/esri-loader/di
     document.querySelector('#helpButton').checked = mode == "help" ? true : false;
     document.querySelector('#helpDivWrapper').style.display = mode == "help" ? "flex" : "none";
     if (mode == "help") {
-      console.log('?');
       document.querySelector('#helpDiv').focus();
     }
     modeStatus(mode);
@@ -558,7 +564,7 @@ import { loadModules, setDefaultOptions } from 'https://unpkg.com/esri-loader/di
       statusAlert('Popup: '+content.meta);
 
       if (document.getElementById('sonarModeCheckbox').checked && !keyboardModeState.sonar) {
-        await sonarSetup();
+        await activateSoundMode();
       }
 
       if (keyboardModeState.sonar) {
@@ -693,10 +699,10 @@ import { loadModules, setDefaultOptions } from 'https://unpkg.com/esri-loader/di
     }
   });
 
+  // do a ping
   async function triggerPing() {
-    // do a sonar ping
     if (!keyboardModeState.sonar) {
-      await sonarSetup();
+      Tone.start();
     }
     ping();
   }
@@ -797,10 +803,8 @@ import { loadModules, setDefaultOptions } from 'https://unpkg.com/esri-loader/di
     }
   }
 
-  async function sonarSetup() {
-    // set state
+  async function activateSoundMode() {
     keyboardModeState.sonar = true;
-    // activate Tone.js
     Tone.start();
   }
 
@@ -921,7 +925,8 @@ import { loadModules, setDefaultOptions } from 'https://unpkg.com/esri-loader/di
     try {
       var bins = rectbin(positions, xExtent, yExtent);
     }catch(e){
-      debugger
+      console.warn(e);
+      return false;
     }
 
 
